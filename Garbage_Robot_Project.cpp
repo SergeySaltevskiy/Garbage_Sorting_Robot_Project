@@ -4,7 +4,7 @@ const float ROBOT_LENGTH = 20;
 const float CONVERSION_FACTOR = (2*PI*WHEEL_RADIUS) / 360.0;
 
 //Sets up all of the sensors and configures them
-void sensorSetUp() //Aiden
+void sensorSetUp() 
 {
 	SensorType [S4] = sensorEV3_Gyro;
 	wait1Msec (50);
@@ -13,12 +13,6 @@ void sensorSetUp() //Aiden
 	SensorMode [S4] = modeEV3Gyro_RateAndAngle;
 	wait1Msec (50);
 	resetGyro (S4);
-	/*
-	SensorType [S1] = sensorEV3_Color;
-	wait1Msec (50);
-	SensorType [S1] = modeEV3Color_Color;
-	wait1Msec (50);
-	*/
 	SensorType [S2] = sensorEV3_Touch;
 	wait1Msec (50);
 	nMotorEncoder [motorA] = 0;
@@ -28,7 +22,7 @@ void sensorSetUp() //Aiden
 }
 
 //Displays text instructions on the screen
-void giveInstructions() //Sophie
+void giveInstructions() 
 {
 	displayTextLine(1, "place trash on platform"); //make sure not too long
 	displayTextLine(2, "indicate bin it should go in");
@@ -39,7 +33,7 @@ void giveInstructions() //Sophie
 }
 
 //stores target bin colour depending on button pressed
-int getBinColour() //Liz
+int getBinColour() 
 {
 	clearTimer(T1); //resets timer at start of program
 	while((!getButtonPress(buttonAny)))
@@ -73,7 +67,7 @@ void hitWall()
 }
 
 //Drives forwards until hits wall
-float driveToWall() //Charlotte
+float driveToWall() 
 {
 	float distanceToWall = 0;
 	hitWall();
@@ -82,7 +76,7 @@ float driveToWall() //Charlotte
 }
 
 //spins a given number of degrees
-void spinXDegrees(int numDegrees, float factorA, float factorB) //Sophie
+void spinXDegrees(int numDegrees, float factorA, float factorB) 
 {
 	resetGyro(S4);
 	wait1Msec(50);
@@ -94,7 +88,7 @@ void spinXDegrees(int numDegrees, float factorA, float factorB) //Sophie
 }
 
 //reverses away from the wall and spins towards the bin
-void awayFromWall() //Aiden
+void awayFromWall() 
 {
 	nMotorEncoder[motorA] = 0;
 	motor[motorA] = motor[motorD] = -25;
@@ -106,7 +100,7 @@ void awayFromWall() //Aiden
 }
 
 //check if colour sensor detected the desired colour
-bool checkBinColor(s) //Liz
+bool checkBinColor(s) 
 {
 	while(true)
 		{
@@ -127,7 +121,7 @@ bool checkBinColor(s) //Liz
 }
 
 //drives towards the bin until correct colour has been detected and spins towards bin
-float driveToBin(int binColor) //Charlotte
+float driveToBin(int binColor) 
 {
 	nMotorEncoder[motorD] = 0;
 
@@ -143,7 +137,7 @@ float driveToBin(int binColor) //Charlotte
 }
 
 //tilts platform down to dump trash
-void tipPlatform() //Sophie
+void tipPlatform() 
 {
 	hitWall();
 	motor[motorC] = 10; //tilts down
@@ -156,7 +150,7 @@ void tipPlatform() //Sophie
 }
 
 //reverse away from the bin
-void reverse(float distanceToWall) //Aiden
+void reverse(float distanceToWall) 
 {
 	motor[motorA] = motor[motorD] = -25;
 	nMotorEncoder[motorA] = 0;
@@ -166,7 +160,7 @@ void reverse(float distanceToWall) //Aiden
 }
 
 //returns robot to the starting position
-float returnToStart(float distanceToBin, int binColour) //Liz
+float returnToStart(float distanceToBin, int binColour) 
 {
 	spinXDegrees(90, 1, -1);
 	nMotorEncoder[motorD] =0;
@@ -185,7 +179,7 @@ float returnToStart(float distanceToBin, int binColour) //Liz
 }
 
 //prints feedback questions and waits for button feedback
-void askForFeedback(int binColour, bool shutDown) //Charlotte
+void askForFeedback(int binColour, bool shutDown) 
 {
 	displayTextLine(6, "Did the garbage go into"); //ask if the garbage went into the correct bin (based on binColour)
 	displayTextLine(7, "correct bin?");
@@ -209,7 +203,7 @@ void askForFeedback(int binColour, bool shutDown) //Charlotte
 }
 
 //displays time taken to complete entire operation
-void displayTime(float timeSpent) //Sophie
+void displayTime(float timeSpent) 
 {
 	float time = timeSpent/6000;
 	displayTextLine(11, "The robot spent %f seconds", time); //check syntax to make sure the float integration is correct
@@ -217,7 +211,7 @@ void displayTime(float timeSpent) //Sophie
 }
 
 //combines all functions in correct order to run complete program
-void runProgram(int binColor, float distanceToWall, float disToBin, bool shutDown, float timeSpent) //Team
+void runProgram(int binColor, float distanceToWall, float disToBin, bool shutDown, float timeSpent) 
 {
 		sensorSetUp();
 		giveInstructions();
@@ -233,7 +227,7 @@ void runProgram(int binColor, float distanceToWall, float disToBin, bool shutDow
 }
 
 
-task main() //Team
+task main() 
 {
 	int binColor = 0; //check to make sure valid type
 	float timeSpent = 0, distanceToWall = 0, distanceToBin = 0;
