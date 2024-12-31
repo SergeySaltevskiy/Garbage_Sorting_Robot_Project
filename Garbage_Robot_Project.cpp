@@ -1,4 +1,4 @@
-const float lengthOfBin = 40; //distance needed to reverse from wall
+const float lengthOfBin = 40; //distance needed to reverse from walll
 const float WHEEL_RADIUS = 2.75;
 const float ROBOT_LENGTH = 20;
 const float CONVERSION_FACTOR = (2*PI*WHEEL_RADIUS) / 360.0;
